@@ -21,6 +21,15 @@ const changeState = function (state = inState, action) {
         },
       };
 
+    case "REMOVE_ITEM":
+      return {
+        ...state,
+        // per rimuove l'elemento copiamo l'arrey e poi filtriamo per indice gli elementi fino a trovare quello corretto
+        favourites: {
+          cont: state.favourites.cont.filter((item, i) => i !== action.payload), // payload è il valore che gli diciamo di aggiungere o togliere
+        },
+      };
+
     // prima settiamo il caso limite, quello errato
     default:
       return state;

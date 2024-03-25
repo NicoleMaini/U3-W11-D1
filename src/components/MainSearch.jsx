@@ -28,7 +28,6 @@ const MainSearch = () => {
       console.log(error);
     }
   };
-  const navigate = useNavigate();
   return (
     <Container>
       <Row>

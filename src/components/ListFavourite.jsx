@@ -12,13 +12,26 @@ function ListFavourite() {
     <Container>
       <div className="d-flex justify-content-between align-items-center">
         <h1 className="display-4 my-3">Your Favorites Companies</h1>
-        <Button variant="outline-secondary p-2">Go Back</Button>
+        <Link to="/">
+          <Button variant="outline-secondary p-2">Go Back</Button>
+        </Link>
       </div>
       <ListGroup>
         {listCompanies.map((companie, i) => {
           return (
             <ListGroupItem key={i}>
-              <Button className="p-0 me-2">-</Button>
+              <Button
+                className="p-0 me-2"
+                onClick={() => {
+                  // risettiamo lo stato con l'azienda selezionata
+                  dispatch({
+                    type: "REMOVE_ITEM",
+                    payload: i,
+                  });
+                }}
+              >
+                -
+              </Button>
               <Link to={`/${companie.company_name}`}>{companie.company_name}</Link>
             </ListGroupItem>
           );
