@@ -1,33 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Job from "./Job";
+import { getCompaniesWork } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const MainSearch = () => {
   const [query, setQuery] = useState("");
-  const [jobs, setJobs] = useState([]);
+  console.log(query);
+  const jobs = useSelector(state => state.companies.list);
+  console.log("stato", jobs);
+  const dispatch = useDispatch();
+  // const [jobs, setJobs] = useState([]);
 
-  const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search=";
+  const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search=" + query + "&limit=20";
 
   const handleChange = e => {
     setQuery(e.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(baseEndpoint + query + "&limit=20");
-      if (response.ok) {
-        const { data } = await response.json();
-        setJobs(data);
-      } else {
-        alert("Error fetching results");
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
+
+  useEffect(() => {
+    dispatch(getCompaniesWork(baseEndpoint));
+  }, [query]);
+
+  // try {
+  //   const response = await fetch(baseEndpoint + query + "&limit=20");
+  //   if (response.ok) {
+  //     const { data } = await response.json();
+  //     setJobs(data);
+  //   } else {
+  //     alert("Error fetching results");
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  // }
+
   return (
     <Container>
       <Row>
@@ -54,9 +65,7 @@ const MainSearch = () => {
           </Form>
         </Col>
         <Col xs={10} className="mx-auto mb-5">
-          {jobs.map(jobData => (
-            <Job key={jobData._id} data={jobData} />
-          ))}
+          {jobs.data !== undefined && jobs.data.map(jobData => <Job key={jobData._id} data={jobData} />)}
         </Col>
       </Row>
     </Container>

@@ -1,6 +1,7 @@
 import { Button, Container, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeCompanieAction } from "../redux/actions";
 
 function ListFavourite() {
   // dobbiammo recuperare l'array delle aziende:
@@ -24,10 +25,7 @@ function ListFavourite() {
                 className="p-0 me-2"
                 onClick={() => {
                   // risettiamo lo stato con l'azienda selezionata
-                  dispatch({
-                    type: "REMOVE_ITEM",
-                    payload: i,
-                  });
+                  dispatch(removeCompanieAction(i));
                 }}
               >
                 -

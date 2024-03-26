@@ -1,6 +1,7 @@
 import { Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux"; // poiché dobbiamo dispacciare un'action
+import { addListCompaniesAction } from "../redux/actions";
 
 const Job = ({ data }) => {
   const dispatch = useDispatch(); // da fare per forza così perché se no non funziona
@@ -11,12 +12,7 @@ const Job = ({ data }) => {
           className="p-0 me-2"
           onClick={() => {
             // qui aggiungimo l'azienda (ovvero ricreaiamo l'array di aziende preferite)
-            dispatch({
-              // gli diciamo a che azione deve rispondere
-              type: "ADD_LIST",
-              // e cosa/dove deve andare a mettere l'elemento
-              payload: data,
-            });
+            dispatch(addListCompaniesAction(data));
           }}
         >
           +
