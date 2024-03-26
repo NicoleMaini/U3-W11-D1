@@ -7,9 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const MainSearch = () => {
   const [query, setQuery] = useState("");
-  console.log(query);
   const jobs = useSelector(state => state.companies.list);
-  console.log("stato", jobs);
   const dispatch = useDispatch();
 
   const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search=" + query + "&limit=20";
@@ -21,7 +19,6 @@ const MainSearch = () => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(getCompaniesWork(baseEndpoint));
-    setQuery("");
   };
 
   return (

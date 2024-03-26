@@ -34,7 +34,7 @@ export const getCompaniesWork = baseEndpoint => {
         }
       })
       .then(data => {
-        console.log(getState());
+        // console.log(getState()); serve a vedere cosa è presente negli stati
         // e dispatcare l'array
         dispatch({
           type: GET_COMPANIES,
